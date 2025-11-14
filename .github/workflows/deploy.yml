@@ -42,8 +42,10 @@ jobs:
 
       - name: Add EC2 host to known_hosts
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ec2-51-20-136-79.eu-north-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+          if [ ! -d "$HOME/.ssh" ]; then
+            mkdir -p "$HOME/.ssh"
+          fi
+          ssh-keyscan -H ec2-51-20-136-79.eu-north-1.compute.amazonaws.com >> "$HOME/.ssh/known_hosts" || echo "ssh-keyscan failed, continuing"
 
       - name: Deploy with PM2
         env:

@@ -29,7 +29,7 @@ module.exports = {
       key: "login-key.pem", // path to your .pem on the local machine running pm2 deploy
       ref: "origin/main",
       repo: "git@github.com:PhatNguyenCuong/lumos-ai.git",
-      path: "/var/www/lumos-ai",
+      path: "/home/ec2-user/lumos-ai",
       "post-deploy":
         "npm install && " +
         "python3 -m venv matchcvenv && " +

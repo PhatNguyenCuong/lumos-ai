@@ -49,4 +49,5 @@ jobs:
         env:
           NODE_ENV: production
         run: |
+          pm2 deploy ecosystem.config.js production setup
           pm2 deploy ecosystem.config.js production --force

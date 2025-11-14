@@ -25,7 +25,7 @@ module.exports = {
   deploy: {
     production: {
       user: "ec2-user", // use "ec2-user" instead if your AMI is Amazon Linux
-      host: "ec2-51-20-136-79.eu-north-1.compute.amazonaws.com",
+      host: "ec2-56-228-5-25.eu-north-1.compute.amazonaws.com",
       key: "login-key.pem", // path to your .pem on the local machine running pm2 deploy
       ref: "origin/main",
       repo: "git@github.com:PhatNguyenCuong/lumos-ai.git",

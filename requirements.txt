@@ -79,7 +79,7 @@ retina-face==0.0.17
 rich==14.1.0
 safetensors==0.5.3
 scikit-learn==1.6.1
-scipy==1.16.1
+scipy==1.13.1
 setuptools==80.9.0
 shellingham==1.5.4
 six==1.17.0

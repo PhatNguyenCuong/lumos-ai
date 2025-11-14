@@ -30,12 +30,23 @@ jobs:
 
       - name: Configure SSH key
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > login-key.pem
           chmod 600 login-key.pem
+          echo "Debug: created SSH key file:"
+          ls -l login-key.pem
+          echo "Debug: file size (bytes):"
+          wc -c < login-key.pem
+          echo "Debug: ~/.ssh directory contents:"
+          ls -la ~/.ssh
+
+      - name: Add EC2 host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ec2-51-20-136-79.eu-north-1.compute.amazonaws.com >> ~/.ssh/known_hosts
 
       - name: Deploy with PM2
         env:
           NODE_ENV: production
         run: |
           pm2 deploy ecosystem.config.js production --force
-

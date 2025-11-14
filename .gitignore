@@ -2,7 +2,7 @@
 node_modules/
 
 # Python virtual environment
-matchcvenv/
+# matchcvenv/
 
 # Logs
 npm-debug.log*

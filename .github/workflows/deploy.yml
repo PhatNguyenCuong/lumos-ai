@@ -49,5 +49,30 @@ jobs:
         env:
           NODE_ENV: production
         run: |
-          pm2 deploy ecosystem.config.js production setup
-          pm2 deploy ecosystem.config.js production --force
+          SSH_HOST="ec2-51-20-136-79.eu-north-1.compute.amazonaws.com"
+
+          ssh -i login-key.pem -o StrictHostKeyChecking=no ec2-user@${SSH_HOST} '
+            set -e
+
+            if [ -d "$HOME/lumos-ai/.git" ]; then
+              echo "Repository exists, pulling latest changes..."
+              cd "$HOME/lumos-ai"
+              git fetch origin main
+              git reset --hard origin/main
+            else
+              echo "Repository does not exist, cloning..."
+              git clone git@github.com:PhatNguyenCuong/lumos-ai.git "$HOME/lumos-ai"
+              cd "$HOME/lumos-ai"
+            fi
+
+            echo "Installing Node.js dependencies..."
+            npm install
+
+            echo "Setting up Python virtual environment..."
+            python3 -m venv matchcvenv
+            ./matchcvenv/bin/python -m pip install --upgrade pip
+            ./matchcvenv/bin/pip install -r requirements.txt
+
+            echo "Reloading PM2 process..."
+            pm2 startOrReload ecosystem.config.js --env production
+          '

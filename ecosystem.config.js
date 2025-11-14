@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "farmtrack-server",
+      name: "lumos-ai-server",
       script: "server.js",
       instances: 1,
       exec_mode: "fork",
@@ -24,12 +24,12 @@ module.exports = {
    */
   deploy: {
     production: {
-      user: "ubuntu", // change to "ubuntu" if your AMI is Ubuntu
+      user: "ec2-user", // use "ec2-user" instead if your AMI is Amazon Linux
       host: "ec2-51-20-136-79.eu-north-1.compute.amazonaws.com",
       key: "login-key.pem", // path to your .pem on the local machine running pm2 deploy
       ref: "origin/main",
-      repo: "git@github.com:YOUR_GITHUB_USER/farmtrack-server.git",
-      path: "/var/www/lumos",
+      repo: "git@github.com:PhatNguyenCuong/lumos-ai.git",
+      path: "/var/www/lumos-ai",
       "post-deploy":
         "npm install && " +
         "python3 -m venv matchcvenv && " +

@@ -1,0 +1,41 @@
+name: CI & Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      # Optional: run tests if you have them
+      # - name: Run tests
+      #   run: npm test
+
+      - name: Install PM2
+        run: npm install -g pm2
+
+      - name: Configure SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > login-key.pem
+          chmod 600 login-key.pem
+
+      - name: Deploy with PM2
+        env:
+          NODE_ENV: production
+        run: |
+          pm2 deploy ecosystem.config.js production --force
+

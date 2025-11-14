@@ -1,0 +1,21 @@
+# Node dependencies
+node_modules/
+
+# Python virtual environment
+matchcvenv/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment and secrets
+.env
+login-key.pem
+
+# Uploads and generated files
+uploads/
+
+# Editor / OS files
+.DS_Store
+.vscode/

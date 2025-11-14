@@ -30,7 +30,6 @@ jobs:
 
       - name: Configure SSH key
         run: |
-          mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_KEY }}" > login-key.pem
           chmod 600 login-key.pem
           echo "Debug: created SSH key file:"

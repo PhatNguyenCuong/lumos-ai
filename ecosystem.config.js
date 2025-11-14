@@ -33,6 +33,7 @@ module.exports = {
       "post-deploy":
         "npm install && " +
         "python3 -m venv matchcvenv && " +
+        "matchcvenv/bin/python -m pip install --upgrade pip && " +
         "matchcvenv/bin/pip install -r requirements.txt && " +
         "pm2 reload ecosystem.config.js --env production",
       env: {

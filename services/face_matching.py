@@ -1,6 +1,13 @@
 import json
+import os
 import sys
 from typing import Any, Dict
+
+# Explicitly force CPU (no GPU / CUDA)
+# This ensures DeepFace and underlying frameworks (TensorFlow / PyTorch)
+# do not try to use a GPU even if one is present.
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "-1")
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
 try:
     from deepface import DeepFace  # type: ignore

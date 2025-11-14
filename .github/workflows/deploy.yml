@@ -59,8 +59,14 @@ jobs:
               cd "$HOME/lumos-ai"
               git fetch origin main
               git reset --hard origin/main
+            elif [ -d "$HOME/lumos-ai" ]; then
+              echo "Directory exists but is not a git repo, cleaning..."
+              rm -rf "$HOME/lumos-ai"
+              echo "Cloning fresh repository..."
+              git clone git@github.com:PhatNguyenCuong/lumos-ai.git "$HOME/lumos-ai"
+              cd "$HOME/lumos-ai"
             else
-              echo "Repository does not exist, cloning..."
+              echo "Repository directory does not exist, cloning..."
               git clone git@github.com:PhatNguyenCuong/lumos-ai.git "$HOME/lumos-ai"
               cd "$HOME/lumos-ai"
             fi

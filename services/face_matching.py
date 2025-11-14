@@ -3,11 +3,24 @@ import os
 import sys
 from typing import Any, Dict
 
-# Explicitly force CPU (no GPU / CUDA)
-# This ensures DeepFace and underlying frameworks (TensorFlow / PyTorch)
-# do not try to use a GPU even if one is present.
+# Explicitly force CPU (no GPU / CUDA).
+# This should be set before importing DeepFace / TensorFlow.
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "-1")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+
+try:
+  # Extra safety: tell TensorFlow to ignore all GPU devices.
+  import tensorflow as _tf  # type: ignore
+
+  try:
+      _tf.config.set_visible_devices([], "GPU")
+  except Exception:
+      # If GPUs are not present or TF version differs, just ignore.
+      pass
+except Exception:
+  # TensorFlow not available or failed to import; DeepFace import below
+  # will raise a clearer error if it really needs TF.
+  _tf = None  # type: ignore
 
 try:
     from deepface import DeepFace  # type: ignore

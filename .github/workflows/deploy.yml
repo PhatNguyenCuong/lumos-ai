@@ -80,11 +80,6 @@ jobs:
             echo "Installing Node.js dependencies..."
             npm install
 
-            echo "Setting up Python virtual environment..."
-            python3 -m venv matchcvenv
-            ./matchcvenv/bin/python -m pip install --upgrade pip
-            ./matchcvenv/bin/pip install -r requirements.txt
-
             echo "Reloading PM2 process..."
             pm2 startOrReload ecosystem.config.js --env production
           '

@@ -11,7 +11,7 @@ yarn-error.log*
 
 # Environment and secrets
 .env
-login-key.pem
+# login-key.pem
 
 # Uploads and generated files
 uploads/

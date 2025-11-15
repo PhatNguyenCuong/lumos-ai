@@ -7,6 +7,8 @@ from typing import Any, Dict
 # This should be set before importing DeepFace / TensorFlow.
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "-1")
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+# Use legacy tf.keras implementation when TensorFlow >= 2.20 + tf_keras plugin are installed.
+os.environ.setdefault("TF_USE_LEGACY_KERAS", "1")
 
 try:
   # Extra safety: tell TensorFlow to ignore all GPU devices.
